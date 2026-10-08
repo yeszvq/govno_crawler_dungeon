@@ -18,3 +18,4 @@ defense = 2
 armor = 2
 weapon_skill = 2
 damage_die = 8
+move_speed = 105.0

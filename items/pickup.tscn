@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://items/pickup.gd" id="1_x1sru"]
 [ext_resource type="Script" path="res://components/interactable.gd" id="2_vekj8"]
 
-[node name="Pickup" type="Node2D" unique_id=407053882 node_paths=PackedStringArray("sprite", "interactable")]
+[node name="Pickup" type="Node2D" unique_id=870787703 node_paths=PackedStringArray("sprite", "interactable")]
 script = ExtResource("1_x1sru")
 sprite = NodePath("Sprite")
 interactable = NodePath("Interactable")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=2146574203]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1148522962]
 
-[node name="Interactable" type="Node" parent="." unique_id=1143192308]
+[node name="Interactable" type="Node2D" parent="." unique_id=1137136218]
 script = ExtResource("2_vekj8")
 prompt = "Поднять"

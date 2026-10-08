@@ -1,31 +1,36 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://characters/hero/hero.gd" id="1_imbhm"]
-[ext_resource type="Resource" path="res://data/classes/warrior.tres" id="2_87haa"]
-[ext_resource type="Script" path="res://components/input_component.gd" id="3_xnfcf"]
-[ext_resource type="Script" path="res://core/state_machine/state_machine.gd" id="4_7jg1l"]
-[ext_resource type="Script" path="res://characters/states/idle_state.gd" id="5_4spg5"]
-[ext_resource type="Script" path="res://characters/states/move_state.gd" id="6_uavhl"]
-[ext_resource type="Script" path="res://characters/states/attack_state.gd" id="7_gaoaf"]
-[ext_resource type="Script" path="res://characters/states/dash_state.gd" id="8_h425d"]
-[ext_resource type="Script" path="res://characters/states/interact_state.gd" id="9_6ewnw"]
-[ext_resource type="Script" path="res://characters/states/downed_state.gd" id="10_wxol6"]
-[ext_resource type="Script" path="res://characters/states/dead_state.gd" id="11_5hkhk"]
-[ext_resource type="Script" path="res://components/health_component.gd" id="12_ms4up"]
-[ext_resource type="Script" path="res://components/grid_movement_component.gd" id="13_sepd4"]
-[ext_resource type="Script" path="res://components/attack_component.gd" id="14_jsdbw"]
-[ext_resource type="Script" path="res://components/interaction_component.gd" id="15_5qnup"]
-[ext_resource type="Script" path="res://components/interactable.gd" id="16_ayq24"]
-[ext_resource type="Script" path="res://components/inventory_component.gd" id="17_xnjhl"]
-[ext_resource type="Script" path="res://components/needs_component.gd" id="18_5htx4"]
-[ext_resource type="Script" path="res://components/skills_component.gd" id="19_aeqmo"]
-[ext_resource type="Script" path="res://components/actor_visual.gd" id="20_mr5pt"]
+[ext_resource type="Script" path="res://characters/hero/hero.gd" id="1_xnfcf"]
+[ext_resource type="Resource" path="res://data/classes/warrior.tres" id="2_7jg1l"]
+[ext_resource type="Script" path="res://components/input_component.gd" id="3_4spg5"]
+[ext_resource type="Script" path="res://core/state_machine/state_machine.gd" id="4_uavhl"]
+[ext_resource type="Script" path="res://characters/states/idle_state.gd" id="5_gaoaf"]
+[ext_resource type="Script" path="res://characters/states/move_state.gd" id="6_h425d"]
+[ext_resource type="Script" path="res://characters/states/attack_state.gd" id="7_6ewnw"]
+[ext_resource type="Script" path="res://characters/states/dash_state.gd" id="8_wxol6"]
+[ext_resource type="Script" path="res://characters/states/interact_state.gd" id="9_5hkhk"]
+[ext_resource type="Script" path="res://characters/states/downed_state.gd" id="10_ms4up"]
+[ext_resource type="Script" path="res://characters/states/dead_state.gd" id="11_sepd4"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="12_jsdbw"]
+[ext_resource type="Script" path="res://components/movement_component.gd" id="13_5qnup"]
+[ext_resource type="Script" path="res://components/attack_component.gd" id="14_ayq24"]
+[ext_resource type="Texture2D" path="res://assets/fx/light.tres" id="15_xnjhl"]
+[ext_resource type="Script" path="res://components/interaction_component.gd" id="16_5htx4"]
+[ext_resource type="Script" path="res://components/interactable.gd" id="17_aeqmo"]
+[ext_resource type="Script" path="res://components/inventory_component.gd" id="18_mr5pt"]
+[ext_resource type="Script" path="res://components/needs_component.gd" id="19_rwyf7"]
+[ext_resource type="Script" path="res://components/skills_component.gd" id="20_io4df"]
+[ext_resource type="Script" path="res://components/actor_visual.gd" id="21_6qtyc"]
+[ext_resource type="Script" path="res://components/actor_effects.gd" id="22_xrn7m"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rwyf7"]
-properties/0/path = NodePath("GridMovement:cell")
+[sub_resource type="CircleShape2D" id="CircleShape2D_duvhw"]
+radius = 8.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m8tt1"]
+properties/0/path = NodePath("Movement:synced_position")
 properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath("GridMovement:facing")
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Movement:facing")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 properties/2/path = NodePath("StateMachine:state_name")
@@ -44,30 +49,39 @@ properties/6/path = NodePath("Inventory:item_paths")
 properties/6/spawn = true
 properties/6/replication_mode = 2
 
-[node name="Hero" type="Node2D" unique_id=1969156182 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement")]
-script = ExtResource("1_imbhm")
+[node name="Hero" type="CharacterBody2D" unique_id=1174624945 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "interaction", "sprite", "state_machine", "health", "movement")]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_xnfcf")
 input = NodePath("Input")
 camera = NodePath("Camera")
 inventory = NodePath("Inventory")
 needs = NodePath("Needs")
-stats = ExtResource("2_87haa")
+interaction = NodePath("Interaction")
+stats = ExtResource("2_7jg1l")
 sprite = NodePath("Sprite")
 state_machine = NodePath("StateMachine")
 health = NodePath("Health")
-movement = NodePath("GridMovement")
+movement = NodePath("Movement")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=703106055]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1473301274]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_duvhw")
 
-[node name="Input" type="Node" parent="." unique_id=2029335807]
-script = ExtResource("3_xnfcf")
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1434474455]
 
-[node name="StateMachine" type="Node" parent="." unique_id=591173250 node_paths=PackedStringArray("input", "initial_state")]
-script = ExtResource("4_7jg1l")
+[node name="Input" type="Node" parent="." unique_id=863161126 node_paths=PackedStringArray("body")]
+script = ExtResource("3_4spg5")
+body = NodePath("..")
+
+[node name="StateMachine" type="Node" parent="." unique_id=161698691 node_paths=PackedStringArray("input", "initial_state")]
+script = ExtResource("4_uavhl")
 input = NodePath("../Input")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=703401464]
-script = ExtResource("5_4spg5")
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1375579546]
+script = ExtResource("5_gaoaf")
 transitions = Dictionary[StringName, StringName]({
 &"attack": &"Attack",
 &"dash": &"Dash",
@@ -75,10 +89,9 @@ transitions = Dictionary[StringName, StringName]({
 &"move": &"Move"
 })
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=293746154 node_paths=PackedStringArray("actor", "movement")]
-script = ExtResource("6_uavhl")
-actor = NodePath("../..")
-movement = NodePath("../../GridMovement")
+[node name="Move" type="Node" parent="StateMachine" unique_id=630309020 node_paths=PackedStringArray("movement")]
+script = ExtResource("6_h425d")
+movement = NodePath("../../Movement")
 transitions = Dictionary[StringName, StringName]({
 &"attack": &"Attack",
 &"dash": &"Dash",
@@ -86,65 +99,71 @@ transitions = Dictionary[StringName, StringName]({
 &"stop": &"Idle"
 })
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=2071791040 node_paths=PackedStringArray("actor", "movement", "attack")]
-script = ExtResource("7_gaoaf")
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1999764682 node_paths=PackedStringArray("actor", "movement", "attack")]
+script = ExtResource("7_6ewnw")
 actor = NodePath("../..")
-movement = NodePath("../../GridMovement")
+movement = NodePath("../../Movement")
 attack = NodePath("../../Attack")
 
-[node name="Dash" type="Node" parent="StateMachine" unique_id=1620742353 node_paths=PackedStringArray("movement")]
-script = ExtResource("8_h425d")
-movement = NodePath("../../GridMovement")
+[node name="Dash" type="Node" parent="StateMachine" unique_id=168710578 node_paths=PackedStringArray("movement")]
+script = ExtResource("8_wxol6")
+movement = NodePath("../../Movement")
 
-[node name="Interact" type="Node" parent="StateMachine" unique_id=2129521446 node_paths=PackedStringArray("movement", "interaction")]
-script = ExtResource("9_6ewnw")
-movement = NodePath("../../GridMovement")
+[node name="Interact" type="Node" parent="StateMachine" unique_id=1227303344 node_paths=PackedStringArray("interaction")]
+script = ExtResource("9_5hkhk")
 interaction = NodePath("../../Interaction")
 
-[node name="Downed" type="Node" parent="StateMachine" unique_id=258998092 node_paths=PackedStringArray("health", "revive_point")]
-script = ExtResource("10_wxol6")
+[node name="Downed" type="Node" parent="StateMachine" unique_id=1309117721 node_paths=PackedStringArray("health", "revive_point")]
+script = ExtResource("10_ms4up")
 health = NodePath("../../Health")
 revive_point = NodePath("../../Interactable")
 
-[node name="Dead" type="Node" parent="StateMachine" unique_id=1807951842]
-script = ExtResource("11_5hkhk")
+[node name="Dead" type="Node" parent="StateMachine" unique_id=1959637388]
+script = ExtResource("11_sepd4")
 
-[node name="Health" type="Node" parent="." unique_id=1083964242]
-script = ExtResource("12_ms4up")
+[node name="Health" type="Node" parent="." unique_id=545389315]
+script = ExtResource("12_jsdbw")
 
-[node name="GridMovement" type="Node" parent="." unique_id=570090029 node_paths=PackedStringArray("body")]
-script = ExtResource("13_sepd4")
+[node name="Movement" type="Node" parent="." unique_id=1204009282 node_paths=PackedStringArray("body")]
+script = ExtResource("13_5qnup")
 body = NodePath("..")
 
-[node name="Attack" type="Node" parent="." unique_id=2018671211 node_paths=PackedStringArray("actor")]
-script = ExtResource("14_jsdbw")
+[node name="Attack" type="Node" parent="." unique_id=1554131411 node_paths=PackedStringArray("actor")]
+script = ExtResource("14_ayq24")
 actor = NodePath("..")
 
-[node name="Camera" type="Camera2D" parent="." unique_id=1863576444]
+[node name="Camera" type="Camera2D" parent="." unique_id=76644574]
 enabled = false
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 
-[node name="Interaction" type="Node" parent="." unique_id=333555897 node_paths=PackedStringArray("actor")]
-script = ExtResource("15_5qnup")
+[node name="Lantern" type="PointLight2D" parent="." unique_id=1782109566]
+color = Color(1, 0.9, 0.75, 1)
+energy = 0.8
+texture = ExtResource("15_xnjhl")
+texture_scale = 1.3
+
+[node name="Interaction" type="Node" parent="." unique_id=1049811305 node_paths=PackedStringArray("actor")]
+script = ExtResource("16_5htx4")
 actor = NodePath("..")
 
-[node name="Interactable" type="Node" parent="." unique_id=441713782]
-script = ExtResource("16_ayq24")
+[node name="Interactable" type="Node2D" parent="." unique_id=45649599]
+script = ExtResource("17_aeqmo")
 prompt = "Поднять союзника"
 
-[node name="Inventory" type="Node" parent="." unique_id=652830948]
-script = ExtResource("17_xnjhl")
+[node name="Inventory" type="Node" parent="." unique_id=954100328]
+script = ExtResource("18_mr5pt")
 
-[node name="Needs" type="Node" parent="." unique_id=391846138]
-script = ExtResource("18_5htx4")
+[node name="Needs" type="Node" parent="." unique_id=933561472]
+script = ExtResource("19_rwyf7")
 
-[node name="Skills" type="Node" parent="." unique_id=2140468704 node_paths=PackedStringArray("attack")]
-script = ExtResource("19_aeqmo")
+[node name="Skills" type="Node" parent="." unique_id=1870302781 node_paths=PackedStringArray("attack")]
+script = ExtResource("20_io4df")
 attack = NodePath("../Attack")
 
-[node name="Visual" type="Node" parent="." unique_id=374258511 node_paths=PackedStringArray("sprite", "state_machine")]
-script = ExtResource("20_mr5pt")
+[node name="Visual" type="Node" parent="." unique_id=1194265040 node_paths=PackedStringArray("sprite", "state_machine")]
+script = ExtResource("21_6qtyc")
 sprite = NodePath("../Sprite")
 state_machine = NodePath("../StateMachine")
 tints = Dictionary[StringName, Color]({
@@ -152,5 +171,12 @@ tints = Dictionary[StringName, Color]({
 &"Downed": Color(0.6, 0.3, 0.3, 0.8)
 })
 
-[node name="Synchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1959466079]
-replication_config = SubResource("SceneReplicationConfig_rwyf7")
+[node name="Effects" type="Node" parent="." unique_id=481128352 node_paths=PackedStringArray("actor", "sprite", "camera", "inventory")]
+script = ExtResource("22_xrn7m")
+actor = NodePath("..")
+sprite = NodePath("../Sprite")
+camera = NodePath("../Camera")
+inventory = NodePath("../Inventory")
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1119372037]
+replication_config = SubResource("SceneReplicationConfig_m8tt1")

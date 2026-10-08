@@ -1,11 +1,10 @@
 class_name InteractState
 extends State
-## Мгновенное действие с клеткой перед собой и сразу обратно.
+## Мгновенное действие с ближайшим интерактивным объектом и сразу обратно.
 
-@export var movement: GridMovementComponent
 @export var interaction: InteractionComponent
 
 
 func enter(_data: Dictionary = {}) -> void:
-	interaction.interact(movement.facing_cell)
+	interaction.interact()
 	machine.resume.call_deferred()

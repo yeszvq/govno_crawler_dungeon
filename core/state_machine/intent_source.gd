@@ -9,7 +9,7 @@ signal intent_received(intent: Intent)
 
 ## Какое направление сейчас зажато. Нужно, чтобы после удара или рывка
 ## персонаж продолжил идти, если игрок так и держит клавишу.
-var held_direction := Vector2i.ZERO
+var held_direction := Vector2.ZERO
 
 
 func emit_intent(intent: Intent) -> void:
@@ -18,10 +18,10 @@ func emit_intent(intent: Intent) -> void:
 
 
 var _held_update: Dictionary[StringName, Callable] = {
-	Intent.MOVE: func(intent: Intent) -> Vector2i: return intent.direction,
-	Intent.STOP: func(_intent: Intent) -> Vector2i: return Vector2i.ZERO,
+	Intent.MOVE: func(intent: Intent) -> Vector2: return intent.direction,
+	Intent.STOP: func(_intent: Intent) -> Vector2: return Vector2.ZERO,
 }
 
 
-func _keep_held(_intent: Intent) -> Vector2i:
+func _keep_held(_intent: Intent) -> Vector2:
 	return held_direction

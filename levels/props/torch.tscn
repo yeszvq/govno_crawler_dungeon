@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/torch.tres" id="1_hl1ks"]
+[ext_resource type="Texture2D" path="res://assets/fx/light.tres" id="2_kkwqv"]
+[ext_resource type="Script" path="res://fx/flicker_light.gd" id="3_0jgic"]
+
+[sub_resource type="Gradient" id="Gradient_lrye1"]
+colors = PackedColorArray(1, 0.8, 0.3, 1, 1, 0.3, 0.1, 0)
+
+[node name="Torch" type="Node2D" unique_id=1379555170]
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=509927193]
+texture = ExtResource("1_hl1ks")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=734512855]
+position = Vector2(0, 10)
+color = Color(1, 0.6, 0.28, 1)
+energy = 1.1
+texture = ExtResource("2_kkwqv")
+texture_scale = 1.35
+script = ExtResource("3_0jgic")
+
+[node name="Embers" type="CPUParticles2D" parent="." unique_id=164880407]
+position = Vector2(0, -12)
+amount = 5
+lifetime = 1.1
+emission_shape = 3
+emission_rect_extents = Vector2(1.5, 2)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -25)
+initial_velocity_min = 4.0
+initial_velocity_max = 14.0
+scale_amount_max = 1.8
+color_ramp = SubResource("Gradient_lrye1")

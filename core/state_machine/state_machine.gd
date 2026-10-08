@@ -57,7 +57,7 @@ func try_transition(target: StringName, data: Dictionary = {}) -> bool:
 ## Вернуться к обычному поведению после удара, рывка и т.п.:
 ## если игрок держит направление, идём дальше, иначе стоим.
 func resume() -> void:
-	var target := &"Idle" if input.held_direction == Vector2i.ZERO else &"Move"
+	var target := &"Idle" if input.held_direction == Vector2.ZERO else &"Move"
 	transition_to(target, {direction = input.held_direction})
 
 

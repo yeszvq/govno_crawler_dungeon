@@ -1,8 +1,8 @@
 class_name InteractionHint
 extends Node2D
 ## Подсказка «[E] Поговорить» над тем, с чем свой герой может сейчас взаимодействовать.
-## Пересчитывается только по событиям: герой шагнул или повернулся, сменил состояние,
-## что-то на сетке появилось/исчезло (Grid.changed), открылось меню.
+## Пересчитывается по событиям: герой сдвинулся или сменил состояние,
+## что-то интерактивное появилось/исчезло/выключилось, открылось меню.
 
 const ACTION := &"interact"
 const OFFSET := Vector2(0, -26)
@@ -23,7 +23,7 @@ func _ready() -> void:
 	Events.party_slot_assigned.connect(_on_party_slot_assigned)
 	Events.menu_toggled.connect(_on_menu_toggled)
 	Events.session_ended.connect(_watch.bind(null))
-	Grid.changed.connect(_refresh)
+	Events.interactables_changed.connect(_refresh)
 
 
 func _on_party_slot_assigned(slot: int, peer_id: int) -> void:
@@ -39,16 +39,16 @@ func _on_menu_toggled(is_open: bool) -> void:
 ## Следить за своим героем (null — ни за кем).
 func _watch(hero: Hero) -> void:
 	if _hero:
-		_hero.movement.facing_changed.disconnect(_on_facing_changed)
+		_hero.movement.moved.disconnect(_on_hero_moved)
 		_hero.state_machine.state_changed.disconnect(_on_state_changed)
 	_hero = hero
 	if _hero:
-		_hero.movement.facing_changed.connect(_on_facing_changed)
+		_hero.movement.moved.connect(_on_hero_moved)
 		_hero.state_machine.state_changed.connect(_on_state_changed)
 	_refresh()
 
 
-func _on_facing_changed(_facing: Vector2i) -> void:
+func _on_hero_moved(_position: Vector2) -> void:
 	_refresh()
 
 
@@ -61,11 +61,10 @@ func _refresh() -> void:
 	visible = target != null
 	if target:
 		label.text = "[%s] %s" % [_key_name, target.prompt]
-		position = Grid.cell_to_world(_hero.movement.facing_cell) + OFFSET
+		position = target.global_position + OFFSET
 
 
 ## С чем герой может взаимодействовать прямо сейчас, или null.
 func _target() -> Interactable:
 	var can_interact := _hero != null and not _menu_open and _hero.state_machine.accepts(Intent.INTERACT)
-	var target: Interactable = Grid.interactable_at(_hero.movement.facing_cell) if can_interact else null
-	return target if target and target.enabled else null
+	return _hero.interaction.find_target() if can_interact else null

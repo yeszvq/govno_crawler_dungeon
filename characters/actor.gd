@@ -1,6 +1,6 @@
 class_name Actor
-extends Node2D
-## Всё, что ходит по сетке и дерётся: герои и враги.
+extends CharacterBody2D
+## Всё, что ходит и дерётся: герои и враги. Тело с коллизией, движется свободно.
 ## Сам ничего не решает: решения принимает StateMachine,
 ## умения живут в компонентах (дочерних узлах).
 
@@ -10,10 +10,11 @@ extends Node2D
 @export var sprite: Sprite2D
 @export var state_machine: StateMachine
 @export var health: HealthComponent
-@export var movement: GridMovementComponent
+@export var movement: MovementComponent
 
 
 func _ready() -> void:
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	apply_stats()
 
 
@@ -22,4 +23,4 @@ func apply_stats() -> void:
 	sprite.texture = stats.sprite
 	health.max_health = stats.max_health
 	health.reset()
-	movement.step_time = stats.step_time
+	movement.speed = stats.move_speed

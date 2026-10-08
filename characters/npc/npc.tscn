@@ -1,26 +1,28 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://characters/npc/npc.gd" id="1_71267"]
-[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/aldric.tres" id="2_vb8yn"]
-[ext_resource type="Script" path="res://components/grid_movement_component.gd" id="3_au85k"]
-[ext_resource type="Script" path="res://components/interactable.gd" id="4_0vu31"]
-[ext_resource type="Script" path="res://components/dialogue_trigger.gd" id="5_ci4ts"]
+[ext_resource type="Script" path="res://characters/npc/npc.gd" id="1_054gq"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/aldric.tres" id="2_71267"]
+[ext_resource type="Script" path="res://components/interactable.gd" id="3_vb8yn"]
+[ext_resource type="Script" path="res://components/dialogue_trigger.gd" id="4_au85k"]
 
-[node name="Npc" type="Node2D" unique_id=393127500 node_paths=PackedStringArray("movement")]
-script = ExtResource("1_71267")
-movement = NodePath("GridMovement")
+[sub_resource type="CircleShape2D" id="CircleShape2D_0vu31"]
+radius = 9.0
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1144505876]
-texture = ExtResource("2_vb8yn")
+[node name="Npc" type="StaticBody2D" unique_id=2122564630]
+collision_mask = 0
+script = ExtResource("1_054gq")
 
-[node name="GridMovement" type="Node" parent="." unique_id=2045103394 node_paths=PackedStringArray("body")]
-script = ExtResource("3_au85k")
-body = NodePath("..")
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1054162133]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_0vu31")
 
-[node name="Interactable" type="Node" parent="." unique_id=184266426]
-script = ExtResource("4_0vu31")
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2020068783]
+texture = ExtResource("2_71267")
+
+[node name="Interactable" type="Node2D" parent="." unique_id=1332153438]
+script = ExtResource("3_vb8yn")
 prompt = "Поговорить"
 
-[node name="DialogueTrigger" type="Node" parent="." unique_id=1247485031 node_paths=PackedStringArray("interactable")]
-script = ExtResource("5_ci4ts")
+[node name="DialogueTrigger" type="Node" parent="." unique_id=1320434098 node_paths=PackedStringArray("interactable")]
+script = ExtResource("4_au85k")
 interactable = NodePath("../Interactable")

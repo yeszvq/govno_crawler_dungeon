@@ -6,6 +6,8 @@ extends CanvasLayer
 @export var hud: Control
 @export var inventory_panel: Control
 @export var pause_overlay: Control
+## Чёрный экран для плавной смены уровня.
+@export var fade: ColorRect
 
 ## Клавиша → что сделать.
 var _actions: Dictionary[StringName, Callable] = {}
@@ -21,6 +23,7 @@ func _ready() -> void:
 	Events.session_started.connect(_on_session_started)
 	Events.session_ended.connect(_on_session_ended)
 	Events.pause_changed.connect(_on_pause_changed)
+	Events.level_loaded.connect(_on_level_loaded)
 	Events.dialogue_requested.connect(_on_dialogue_requested)
 	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 	_on_session_ended()
@@ -48,6 +51,13 @@ func _on_session_ended() -> void:
 	hud.hide()
 	inventory_panel.hide()
 	pause_overlay.hide()
+	fade.color.a = 0.0
+
+
+## Новый уровень проявляется из темноты.
+func _on_level_loaded(_level: Level) -> void:
+	fade.color.a = 1.0
+	fade.create_tween().tween_property(fade, ^"color:a", 0.0, 0.6)
 
 
 func _on_pause_changed(is_paused: bool) -> void:

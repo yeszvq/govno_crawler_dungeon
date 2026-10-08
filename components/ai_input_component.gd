@@ -5,7 +5,7 @@ extends IntentSource
 ## Думает только на хосте; у клиентов враг лишь отображается.
 
 @export var actor: Actor
-@export var movement: GridMovementComponent
+@export var attack: AttackComponent
 
 var _think_timer := Timer.new()
 
@@ -24,30 +24,26 @@ func _think() -> void:
 	if target == null:
 		emit_intent(Intent.new(Intent.STOP))
 		return
-	var offset := target.movement.cell - movement.cell
-	var direction := _direction_towards(offset)
-	# Уже стоим вплотную и смотрим на цель — бьём, иначе подходим/поворачиваемся.
-	var can_hit := offset.length_squared() == 1 and movement.facing == direction
-	emit_intent(Intent.new(Intent.ATTACK if can_hit else Intent.MOVE, direction))
+	var to_target := target.global_position - actor.global_position
+	var in_reach := to_target.length() <= attack.reach + attack.radius
+	var intent := Intent.new(Intent.ATTACK, to_target.normalized()) if in_reach else Intent.new(Intent.MOVE, _steer(target))
+	emit_intent(intent)
+
+
+## Направление к следующей точке пути (в обход стен).
+func _steer(target: Hero) -> Vector2:
+	var path := Grid.find_path(actor.global_position, target.global_position)
+	var waypoint := path[1] if path.size() > 2 else target.global_position
+	return (waypoint - actor.global_position).normalized()
 
 
 func _nearest_hero() -> Hero:
 	var definition := actor.stats as EnemyDefinition
 	var best: Hero = null
-	var best_distance := definition.aggro_range + 1
+	var best_distance := definition.aggro_range * Grid.CELL_SIZE
 	for hero: Hero in get_tree().get_nodes_in_group(Hero.GROUP):
-		var distance := _manhattan(hero.movement.cell - movement.cell)
+		var distance := actor.global_position.distance_to(hero.global_position)
 		if distance < best_distance and not hero.health.is_depleted:
 			best = hero
 			best_distance = distance
 	return best
-
-
-static func _manhattan(offset: Vector2i) -> int:
-	return absi(offset.x) + absi(offset.y)
-
-
-## Шаг по той оси, где до цели дальше.
-static func _direction_towards(offset: Vector2i) -> Vector2i:
-	var along_x := absi(offset.x) >= absi(offset.y)
-	return Vector2i(signi(offset.x), 0) if along_x else Vector2i(0, signi(offset.y))

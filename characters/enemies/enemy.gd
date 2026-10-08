@@ -9,7 +9,7 @@ const PICKUP_SCENE := "res://items/pickup.tscn"
 ## Вызывается спаунером до добавления в дерево. data: definition, cell.
 func setup(data: Dictionary) -> void:
 	stats = load(data.definition)
-	movement.place(data.cell)
+	movement.place(Grid.cell_to_world(data.cell))
 
 
 func drop_loot() -> void:
@@ -17,4 +17,4 @@ func drop_loot() -> void:
 	if definition.loot.is_empty():
 		return
 	var item: ItemDefinition = definition.loot.pick_random()
-	Grid.level.spawn_entity(PICKUP_SCENE, movement.cell, {item = item.resource_path})
+	Grid.level.spawn_entity(PICKUP_SCENE, movement.cell, {item = item.resource_path, position = global_position})
