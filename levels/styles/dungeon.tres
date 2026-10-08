@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LevelStyle" format=3]
+
+[ext_resource type="PackedScene" path="res://levels/props/campfire.tscn" id="1_aunrx"]
+[ext_resource type="Script" path="res://levels/level_style.gd" id="2_1tmmo"]
+[ext_resource type="PackedScene" path="res://levels/props/torch.tscn" id="3_1vcd5"]
+
+[resource]
+script = ExtResource("2_1tmmo")
+floor_tiles = Array[Vector2i]([Vector2i(41, 13), Vector2i(42, 13), Vector2i(43, 13), Vector2i(44, 13)])
+wall_tiles = Array[Vector2i]([Vector2i(22, 13), Vector2i(23, 13), Vector2i(24, 13), Vector2i(22, 13), Vector2i(25, 13), Vector2i(26, 13)])
+decals = Array[Vector2i]([Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(10, 10), Vector2i(11, 10), Vector2i(37, 42), Vector2i(32, 46), Vector2i(59, 45), Vector2i(12, 11), Vector2i(13, 11), Vector2i(16, 11), Vector2i(17, 11)])
+decal_chance = 0.07
+props = Dictionary[String, Vector2i]({
+"o": Vector2i(24, 7)
+})
+torch_chance = 0.14
+torch_scene = ExtResource("3_1vcd5")
+campfire_scene = ExtResource("1_aunrx")
+ambient = Color(0.2, 0.19, 0.25, 1)

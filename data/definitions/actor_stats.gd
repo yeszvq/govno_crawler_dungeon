@@ -13,7 +13,7 @@ extends Resource
 @export_group("Combat")
 @export_range(0, 20) var weapon_skill := 0
 @export_range(1, 20) var damage_die := 4
-## Секунд на один шаг (0.25 = 4 клетки в секунду).
-@export_range(0.05, 2.0, 0.01) var step_time := 0.25
+## Скорость ходьбы, пикселей в секунду (клетка — 32 px).
+@export_range(10.0, 400.0, 1.0) var move_speed := 110.0
 ## Секунд между ударами.
 @export_range(0.1, 5.0, 0.05) var attack_cooldown := 0.6

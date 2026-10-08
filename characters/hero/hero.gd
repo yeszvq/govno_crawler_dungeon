@@ -12,14 +12,17 @@ const GROUP := &"heroes"
 @export var camera: Camera2D
 @export var inventory: InventoryComponent
 @export var needs: NeedsComponent
+@export var interaction: InteractionComponent
 
 ## Чей это герой. 0 — слот свободен, герой спрятан и выключен.
 var owner_peer_id := 0:
 	set(value):
 		owner_peer_id = value
 		input.owner_peer_id = value
-		camera.enabled = input.is_local()
 		_set_active(value != 0)
+		camera.enabled = input.is_local()
+		if camera.enabled:
+			camera.make_current()
 
 ## Состояние → глобальное событие при входе в него.
 var _enter_events: Dictionary[StringName, Signal] = {}
@@ -52,7 +55,7 @@ func apply_stats() -> void:
 ## Хост ставит героя на точку появления нового уровня.
 ## Павшие и упавшие при этом воскресают (смерть = возвращение в лагерь).
 func enter_level(cell: Vector2i) -> void:
-	movement.place(cell)
+	movement.place(Grid.cell_to_world(cell))
 	if health.is_depleted:
 		health.reset()
 		needs.reset()
@@ -62,11 +65,12 @@ func enter_level(cell: Vector2i) -> void:
 func _set_active(active: bool) -> void:
 	visible = active
 	process_mode = Node.PROCESS_MODE_INHERIT if active else Node.PROCESS_MODE_DISABLED
+	# Спрятанный герой не должен ни во что упираться.
+	collision_layer = PhysicsLayers.ACTORS if active else 0
 	if active:
 		add_to_group(GROUP)
 	else:
 		remove_from_group(GROUP)
-		Grid.release(self, movement.cell)
 
 
 func _on_state_changed(previous: StringName, current: StringName) -> void:

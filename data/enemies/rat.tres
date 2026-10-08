@@ -4,10 +4,12 @@
 [ext_resource type="Resource" path="res://data/items/rat_tail.tres" id="2_yg1s8"]
 [ext_resource type="Resource" path="res://data/items/bread.tres" id="3_k8ko8"]
 [ext_resource type="Script" path="res://data/definitions/enemy_definition.gd" id="4_uavmj"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/rat.png" id="5_25g3m"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/rat.tres" id="5_25g3m"]
 
 [resource]
 script = ExtResource("4_uavmj")
+aggro_range = 7
+think_interval = 0.2
 loot = Array[ExtResource("1_lclod")]([ExtResource("2_yg1s8"), ExtResource("3_k8ko8")])
 display_name = "Крыса"
 sprite = ExtResource("5_25g3m")
@@ -15,5 +17,5 @@ max_health = 6
 strength = 2
 dexterity = 6
 damage_die = 3
-step_time = 0.35
-attack_cooldown = 0.9
+move_speed = 90.0
+attack_cooldown = 1.0

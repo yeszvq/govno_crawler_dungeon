@@ -57,9 +57,16 @@ func try_transition(target: StringName, data: Dictionary = {}) -> bool:
 ## Вернуться к обычному поведению после удара, рывка и т.п.:
 ## если игрок держит направление, идём дальше, иначе стоим.
 func resume() -> void:
-	var target := &"Idle" if input.held_direction == Vector2i.ZERO else &"Move"
+	var target := &"Idle" if input.held_direction == Vector2.ZERO else &"Move"
 	transition_to(target, {direction = input.held_direction})
 
 
 func has_state(target: StringName) -> bool:
 	return _states.has(target)
+
+
+## Есть ли у текущего состояния переход по такому намерению.
+## Работает и у клиентов, потому что смотрит на синхронизированный state_name.
+func accepts(kind: StringName) -> bool:
+	var state: State = _states.get(state_name)
+	return state != null and state.transitions.has(kind)

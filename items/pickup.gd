@@ -1,33 +1,28 @@
 class_name Pickup
 extends Node2D
 ## Предмет на полу. Не мешает ходить; поднимает тот, кто первым
-## нажал «взаимодействие» на этой клетке, и предмет уходит ему.
+## нажал «взаимодействие» рядом, и предмет уходит ему.
 
 @export var sprite: Sprite2D
 @export var interactable: Interactable
 
 var item: ItemDefinition
-var cell := Vector2i.ZERO
 
 
-## Вызывается спаунером до добавления в дерево. data: item, cell.
+## Вызывается спаунером до добавления в дерево.
+## data: item, cell, и необязательно position (точное место, где выпал).
 func setup(data: Dictionary) -> void:
 	item = load(data.item)
-	cell = data.cell
-	position = Grid.cell_to_world(cell)
+	position = data.get("position", Grid.cell_to_world(data.cell))
 
 
 func _ready() -> void:
 	sprite.texture = item.icon
+	interactable.prompt = "Поднять: %s" % item.display_name
 	interactable.interacted.connect(_on_interacted)
-
-
-func _enter_tree() -> void:
-	Grid.add_floor_interactable(interactable, cell)
-
-
-func _exit_tree() -> void:
-	Grid.remove_floor_interactable(interactable, cell)
+	# Предмет «подпрыгивает», когда выпадает.
+	sprite.position.y = -10.0
+	create_tween().tween_property(sprite, ^"position:y", 0.0, 0.35).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 
 func _on_interacted(by: Actor) -> void:

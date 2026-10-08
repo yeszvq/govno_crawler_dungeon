@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/potion.tres" id="1_305ns"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="2_ijg6u"]
+
+[resource]
+script = ExtResource("2_ijg6u")
+id = &"healing_potion"
+display_name = "Зелье лечения"
+icon = ExtResource("1_305ns")
+kind = 4
+weight = 0.2

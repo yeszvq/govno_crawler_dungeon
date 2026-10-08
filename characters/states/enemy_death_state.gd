@@ -13,6 +13,7 @@ func _ready() -> void:
 
 
 func enter(_data: Dictionary = {}) -> void:
+	enemy.collision_layer = 0
 	enemy.drop_loot()
 	get_tree().create_timer(corpse_time).timeout.connect(enemy.queue_free)
 

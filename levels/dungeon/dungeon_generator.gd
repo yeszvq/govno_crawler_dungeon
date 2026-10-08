@@ -8,6 +8,10 @@ const HEIGHT := 32
 const ROOM_ATTEMPTS := 40
 const MIN_ROOM := 4
 const MAX_ROOM := 9
+## Шанс сундука в комнате (кроме стартовой и последней).
+const CHEST_CHANCE := 0.4
+## С какого размера в комнате ставим колонны по углам (символ «o»).
+const PILLAR_ROOM := 6
 
 
 static func generate(level_seed: int, depth: int) -> String:
@@ -34,7 +38,9 @@ static func generate(level_seed: int, depth: int) -> String:
 	_place_start(map, rooms.front())
 	_mark(map, rooms.back().get_center(), ">")
 	for room: Rect2i in rooms.slice(1, rooms.size() - 1):
+		_place_pillars(map, room)
 		_place_enemies(map, room, rng, depth)
+		_place_chest(map, room, rng)
 	return "\n".join(PackedStringArray(map.map(func(row: Array) -> String: return "".join(PackedStringArray(row)))))
 
 
@@ -58,11 +64,27 @@ static func _place_start(map: Array[Array], room: Rect2i) -> void:
 		_mark(map, center + offset, "P")
 
 
+## Колонны на шаг от углов: вокруг каждой остаётся пол, так что проходы не перекрываются.
+static func _place_pillars(map: Array[Array], room: Rect2i) -> void:
+	if room.size.x < PILLAR_ROOM or room.size.y < PILLAR_ROOM:
+		return
+	var inner := room.grow(-1)
+	for cell: Vector2i in [inner.position, Vector2i(inner.end.x - 1, inner.position.y), Vector2i(inner.position.x, inner.end.y - 1), inner.end - Vector2i.ONE]:
+		if map[cell.y][cell.x] == ".":
+			_mark(map, cell, "o")
+
+
 static func _place_enemies(map: Array[Array], room: Rect2i, rng: RandomNumberGenerator, depth: int) -> void:
 	for i in rng.randi_range(0, 1 + depth):
 		var cell := Vector2i(rng.randi_range(room.position.x, room.end.x - 1), rng.randi_range(room.position.y, room.end.y - 1))
 		if map[cell.y][cell.x] == ".":
 			_mark(map, cell, "r")
+
+
+static func _place_chest(map: Array[Array], room: Rect2i, rng: RandomNumberGenerator) -> void:
+	var cell := Vector2i(rng.randi_range(room.position.x, room.end.x - 1), rng.randi_range(room.position.y, room.end.y - 1))
+	if rng.randf() < CHEST_CHANCE and map[cell.y][cell.x] == ".":
+		_mark(map, cell, "c")
 
 
 static func _mark(map: Array[Array], cell: Vector2i, symbol: String) -> void:

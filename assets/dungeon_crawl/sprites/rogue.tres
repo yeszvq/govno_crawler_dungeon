@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/project_utumno.png" id="1_r6yvj"]
+
+[resource]
+atlas = ExtResource("1_r6yvj")
+region = Rect2(1952, 256, 32, 32)

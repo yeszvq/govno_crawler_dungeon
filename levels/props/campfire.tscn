@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/campfire.tres" id="1_vlvqb"]
+[ext_resource type="Texture2D" path="res://assets/fx/light.tres" id="2_muiul"]
+[ext_resource type="Script" path="res://fx/flicker_light.gd" id="3_yg3g7"]
+
+[sub_resource type="Gradient" id="Gradient_2jho4"]
+colors = PackedColorArray(1, 0.8, 0.3, 1, 1, 0.3, 0.1, 0)
+
+[node name="Campfire" type="Node2D" unique_id=1586239305]
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=214442939]
+texture = ExtResource("1_vlvqb")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=1382048946]
+color = Color(1, 0.62, 0.3, 1)
+energy = 1.35
+texture = ExtResource("2_muiul")
+texture_scale = 2.4
+script = ExtResource("3_yg3g7")
+energy_jitter = 0.3
+
+[node name="Embers" type="CPUParticles2D" parent="." unique_id=836769278]
+position = Vector2(0, -6)
+amount = 16
+lifetime = 1.1
+emission_shape = 3
+emission_rect_extents = Vector2(6, 2)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -25)
+initial_velocity_min = 4.0
+initial_velocity_max = 14.0
+scale_amount_max = 1.8
+color_ramp = SubResource("Gradient_2jho4")

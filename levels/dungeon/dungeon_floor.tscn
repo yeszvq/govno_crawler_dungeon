@@ -1,19 +1,46 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://levels/dungeon/dungeon_floor.gd" id="1_t1rpo"]
-[ext_resource type="TileSet" path="res://assets/placeholder/tileset.tres" id="2_h37gi"]
+[ext_resource type="Script" path="res://levels/dungeon/dungeon_floor.gd" id="1_h37gi"]
+[ext_resource type="Resource" path="res://levels/styles/dungeon.tres" id="2_g1db3"]
+[ext_resource type="TileSet" path="res://assets/dungeon_crawl/tileset.tres" id="3_j616l"]
 
-[node name="DungeonFloor" type="Node2D" unique_id=380323670 node_paths=PackedStringArray("tiles", "entities", "spawner")]
-script = ExtResource("1_t1rpo")
+[sub_resource type="Gradient" id="Gradient_6oxsh"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.95, 0.85, 0, 1, 0.95, 0.85, 0.5, 1, 0.95, 0.85, 0)
+
+[node name="DungeonFloor" type="Node2D" unique_id=1589153304 node_paths=PackedStringArray("tiles", "decor", "entities", "spawner", "darkness", "ambience")]
+script = ExtResource("1_h37gi")
 id = &"dungeon"
+style = ExtResource("2_g1db3")
 tiles = NodePath("Tiles")
+decor = NodePath("Decor")
 entities = NodePath("Entities")
 spawner = NodePath("EntitySpawner")
+darkness = NodePath("Darkness")
+ambience = NodePath("Ambience")
 
-[node name="Tiles" type="TileMapLayer" parent="." unique_id=1782983536]
-tile_set = ExtResource("2_h37gi")
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=128639131]
 
-[node name="Entities" type="Node2D" parent="." unique_id=532364497]
+[node name="Tiles" type="TileMapLayer" parent="." unique_id=721220778]
+tile_set = ExtResource("3_j616l")
 
-[node name="EntitySpawner" type="MultiplayerSpawner" parent="." unique_id=222584401]
+[node name="Decor" type="TileMapLayer" parent="." unique_id=1973478868]
+tile_set = ExtResource("3_j616l")
+
+[node name="Entities" type="Node2D" parent="." unique_id=338591486]
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="." unique_id=121648246]
 spawn_path = NodePath("../Entities")
+
+[node name="Ambience" type="CPUParticles2D" parent="." unique_id=165048896]
+z_index = 5
+lifetime = 8.0
+preprocess = 8.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 1.5)
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_6oxsh")

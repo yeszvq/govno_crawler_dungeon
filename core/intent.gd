@@ -7,14 +7,15 @@ extends RefCounted
 
 const MOVE := &"move" ## Идти в direction (пока не придёт STOP).
 const STOP := &"stop" ## Отпустили все направления.
-const ATTACK := &"attack" ## Ударить в клетку перед собой.
+const ATTACK := &"attack" ## Ударить в сторону direction (куда целится мышь).
 const INTERACT := &"interact" ## Поговорить / поднять / поднять упавшего союзника.
-const DASH := &"dash" ## Рывок на две клетки.
+const DASH := &"dash" ## Рывок вперёд.
 
 var kind: StringName
-var direction: Vector2i
+## Единичный вектор направления (или ноль).
+var direction: Vector2
 
 
-func _init(p_kind: StringName, p_direction := Vector2i.ZERO) -> void:
+func _init(p_kind: StringName, p_direction := Vector2.ZERO) -> void:
 	kind = p_kind
 	direction = p_direction

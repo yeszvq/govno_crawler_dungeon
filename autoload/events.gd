@@ -54,6 +54,19 @@ signal hero_respawned(hero: Hero)
 signal item_picked_up(hero: Hero, item: ItemDefinition)
 signal damage_dealt(attacker: Node, target: Node, amount: int)
 
+# --- Эффекты (только визуал, локально на каждой машине) -----------------------
+
+## Всплывающий текст в мире: урон, «+Хлеб».
+signal floating_text_requested(text: String, world_position: Vector2, color: Color)
+## Вспышка частиц в точке (смерть, открытие сундука).
+signal burst_requested(world_position: Vector2, color: Color)
+## Взмах оружием: дуга в сторону aim.
+signal swing_shown(world_position: Vector2, aim: Vector2, color: Color)
+## Удар дошёл до цели: попал (искры) или промахнулся («промах»).
+signal impact_shown(world_position: Vector2, is_hit: bool)
+## Что-то, с чем можно взаимодействовать, появилось, исчезло, включилось или выключилось.
+signal interactables_changed
+
 # --- Интерфейс, пауза, диалоги -------------------------------------------------
 
 ## Локальный игрок открыл или закрыл меню (инвентарь, персонаж, карта).

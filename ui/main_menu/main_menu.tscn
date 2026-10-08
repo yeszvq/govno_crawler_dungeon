@@ -1,57 +1,94 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_mu8pm"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/project_utumno.png" id="2_omy8q"]
 
-[node name="MainMenu" type="Control" unique_id=1055614647 node_paths=PackedStringArray("host_button", "address_edit", "join_button", "lan_list", "status_label")]
+[node name="MainMenu" type="Control" unique_id=1499091601 node_paths=PackedStringArray("host_button", "address_edit", "join_button", "lan_list", "status_label")]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("1_uhj5c")
-host_button = NodePath("Center/Box/HostButton")
-address_edit = NodePath("Center/Box/JoinRow/Address")
-join_button = NodePath("Center/Box/JoinRow/JoinButton")
-lan_list = NodePath("Center/Box/LanList")
-status_label = NodePath("Center/Box/Status")
+script = ExtResource("1_mu8pm")
+host_button = NodePath("Center/Column/Panel/Box/HostButton")
+address_edit = NodePath("Center/Column/Panel/Box/JoinRow/Address")
+join_button = NodePath("Center/Column/Panel/Box/JoinRow/JoinButton")
+lan_list = NodePath("Center/Column/Panel/Box/LanList")
+status_label = NodePath("Center/Column/Panel/Box/Status")
 
-[node name="Center" type="CenterContainer" parent="." unique_id=1715579346]
+[node name="Background" type="TextureRect" parent="." unique_id=192331231]
+modulate = Color(0.25, 0.22, 0.2, 1)
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_omy8q")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="." unique_id=1813025180]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.02, 0.02, 0.55)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1393164060]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Box" type="VBoxContainer" parent="Center" unique_id=1025903728]
-custom_minimum_size = Vector2(420, 0)
+[node name="Column" type="VBoxContainer" parent="Center" unique_id=1486466085]
 layout_mode = 2
+theme_override_constants/separation = 14
 
-[node name="Title" type="Label" parent="Center/Box" unique_id=238263065]
+[node name="Title" type="Label" parent="Center/Column" unique_id=837317635]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.04, 0.02, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 54
 text = "Последний костёр"
 horizontal_alignment = 1
 
-[node name="HostButton" type="Button" parent="Center/Box" unique_id=1624842806]
+[node name="Subtitle" type="Label" parent="Center/Column" unique_id=1046742941]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+text = "кооперативное подземелье на четверых"
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Center/Column" unique_id=1334017141]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+
+[node name="Box" type="VBoxContainer" parent="Center/Column/Panel" unique_id=1079416518]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HostButton" type="Button" parent="Center/Column/Panel/Box" unique_id=2023412909]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Создать игру"
 
-[node name="JoinRow" type="HBoxContainer" parent="Center/Box" unique_id=1278323218]
+[node name="JoinRow" type="HBoxContainer" parent="Center/Column/Panel/Box" unique_id=999462896]
 layout_mode = 2
 
-[node name="Address" type="LineEdit" parent="Center/Box/JoinRow" unique_id=1183127554]
+[node name="Address" type="LineEdit" parent="Center/Column/Panel/Box/JoinRow" unique_id=248359043]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "127.0.0.1"
 placeholder_text = "IP хоста"
 
-[node name="JoinButton" type="Button" parent="Center/Box/JoinRow" unique_id=811137848]
+[node name="JoinButton" type="Button" parent="Center/Column/Panel/Box/JoinRow" unique_id=688250309]
 layout_mode = 2
 text = "Подключиться"
 
-[node name="LanTitle" type="Label" parent="Center/Box" unique_id=1568052833]
+[node name="LanTitle" type="Label" parent="Center/Column/Panel/Box" unique_id=49528954]
 layout_mode = 2
+theme_override_font_sizes/font_size = 13
 text = "Игры в локальной сети (двойной клик — подключиться):"
 
-[node name="LanList" type="ItemList" parent="Center/Box" unique_id=241182583]
-custom_minimum_size = Vector2(0, 160)
+[node name="LanList" type="ItemList" parent="Center/Column/Panel/Box" unique_id=1507661087]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 
-[node name="Status" type="Label" parent="Center/Box" unique_id=1295864525]
+[node name="Status" type="Label" parent="Center/Column/Panel/Box" unique_id=2007238622]
 layout_mode = 2
+theme_override_font_sizes/font_size = 13

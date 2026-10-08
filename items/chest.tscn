@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://items/chest.gd" id="1_m4vt0"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/chest_closed.tres" id="2_8mxgl"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/chest_open.tres" id="3_04dr6"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="4_eu37i"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="5_rnvdd"]
+[ext_resource type="Resource" path="res://data/items/healing_potion.tres" id="6_kvmpk"]
+[ext_resource type="Resource" path="res://data/items/old_sword.tres" id="7_jcijp"]
+[ext_resource type="Resource" path="res://data/items/rat_tail.tres" id="8_e101k"]
+[ext_resource type="Script" path="res://components/interactable.gd" id="9_1hgfl"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6po8f"]
+properties/0/path = NodePath(".:opened")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="Chest" type="Node2D" unique_id=1999045778 node_paths=PackedStringArray("sprite", "interactable")]
+script = ExtResource("1_m4vt0")
+sprite = NodePath("Sprite")
+interactable = NodePath("Interactable")
+closed_texture = ExtResource("2_8mxgl")
+opened_texture = ExtResource("3_04dr6")
+loot = Array[ExtResource("4_eu37i")]([ExtResource("5_rnvdd"), ExtResource("5_rnvdd"), ExtResource("6_kvmpk"), ExtResource("7_jcijp"), ExtResource("8_e101k")])
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=178608169]
+
+[node name="Interactable" type="Node2D" parent="." unique_id=1008844159]
+script = ExtResource("9_1hgfl")
+prompt = "Открыть сундук"
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="." unique_id=147208292]
+replication_config = SubResource("SceneReplicationConfig_6po8f")
