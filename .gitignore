@@ -1,0 +1,20 @@
+# Godot
+.godot/
+/android/
+*.translation
+export_presets.cfg
+export_credentials.cfg
+
+# gdUnit4 reports
+/reports/
+/gdunit4_testadapter*/
+
+# Платные/закрытые ассеты: лицензия 32rogues запрещает выкладывать пак в открытый доступ.
+# Положи распакованный пак в assets/32rogues/ локально, в git он не попадёт.
+/assets/32rogues/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
