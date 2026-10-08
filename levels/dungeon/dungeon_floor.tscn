@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://levels/dungeon/dungeon_floor.gd" id="1_t1rpo"]
+[ext_resource type="TileSet" path="res://assets/placeholder/tileset.tres" id="2_h37gi"]
+
+[node name="DungeonFloor" type="Node2D" unique_id=380323670 node_paths=PackedStringArray("tiles", "entities", "spawner")]
+script = ExtResource("1_t1rpo")
+id = &"dungeon"
+tiles = NodePath("Tiles")
+entities = NodePath("Entities")
+spawner = NodePath("EntitySpawner")
+
+[node name="Tiles" type="TileMapLayer" parent="." unique_id=1782983536]
+tile_set = ExtResource("2_h37gi")
+
+[node name="Entities" type="Node2D" parent="." unique_id=532364497]
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="." unique_id=222584401]
+spawn_path = NodePath("../Entities")

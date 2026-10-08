@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://characters/enemies/enemy.gd" id="1_xslqa"]
+[ext_resource type="Resource" path="res://data/enemies/rat.tres" id="2_yhmxs"]
+[ext_resource type="Script" path="res://components/ai_input_component.gd" id="3_h2rlq"]
+[ext_resource type="Script" path="res://core/state_machine/state_machine.gd" id="4_ft2fp"]
+[ext_resource type="Script" path="res://characters/states/idle_state.gd" id="5_02b5a"]
+[ext_resource type="Script" path="res://characters/states/move_state.gd" id="6_2ooaa"]
+[ext_resource type="Script" path="res://characters/states/attack_state.gd" id="7_flmvf"]
+[ext_resource type="Script" path="res://characters/states/enemy_death_state.gd" id="8_8mmo8"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="9_brphm"]
+[ext_resource type="Script" path="res://components/grid_movement_component.gd" id="10_mw0rn"]
+[ext_resource type="Script" path="res://components/attack_component.gd" id="11_u1l17"]
+[ext_resource type="Script" path="res://components/actor_visual.gd" id="12_q0u1a"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o2nwl"]
+properties/0/path = NodePath("GridMovement:cell")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("GridMovement:facing")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("StateMachine:state_name")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("Health:current")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[node name="Enemy" type="Node2D" unique_id=105824755 node_paths=PackedStringArray("sprite", "state_machine", "health", "movement")]
+script = ExtResource("1_xslqa")
+stats = ExtResource("2_yhmxs")
+faction = &"monsters"
+sprite = NodePath("Sprite")
+state_machine = NodePath("StateMachine")
+health = NodePath("Health")
+movement = NodePath("GridMovement")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=311201133]
+
+[node name="AiInput" type="Node" parent="." unique_id=820029421 node_paths=PackedStringArray("actor", "movement")]
+script = ExtResource("3_h2rlq")
+actor = NodePath("..")
+movement = NodePath("../GridMovement")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2089711083 node_paths=PackedStringArray("input", "initial_state")]
+script = ExtResource("4_ft2fp")
+input = NodePath("../AiInput")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1073921867]
+script = ExtResource("5_02b5a")
+transitions = Dictionary[StringName, StringName]({
+&"attack": &"Attack",
+&"move": &"Move"
+})
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=376788300 node_paths=PackedStringArray("actor", "movement")]
+script = ExtResource("6_2ooaa")
+actor = NodePath("../..")
+movement = NodePath("../../GridMovement")
+transitions = Dictionary[StringName, StringName]({
+&"attack": &"Attack",
+&"stop": &"Idle"
+})
+
+[node name="Attack" type="Node" parent="StateMachine" unique_id=805597636 node_paths=PackedStringArray("actor", "movement", "attack")]
+script = ExtResource("7_flmvf")
+actor = NodePath("../..")
+movement = NodePath("../../GridMovement")
+attack = NodePath("../../Attack")
+
+[node name="Death" type="Node" parent="StateMachine" unique_id=1985137064 node_paths=PackedStringArray("enemy", "health")]
+script = ExtResource("8_8mmo8")
+enemy = NodePath("../..")
+health = NodePath("../../Health")
+
+[node name="Health" type="Node" parent="." unique_id=386533759]
+script = ExtResource("9_brphm")
+
+[node name="GridMovement" type="Node" parent="." unique_id=1484328025 node_paths=PackedStringArray("body")]
+script = ExtResource("10_mw0rn")
+body = NodePath("..")
+
+[node name="Attack" type="Node" parent="." unique_id=2062974163 node_paths=PackedStringArray("actor")]
+script = ExtResource("11_u1l17")
+actor = NodePath("..")
+
+[node name="Visual" type="Node" parent="." unique_id=718581478 node_paths=PackedStringArray("sprite", "state_machine")]
+script = ExtResource("12_q0u1a")
+sprite = NodePath("../Sprite")
+state_machine = NodePath("../StateMachine")
+tints = Dictionary[StringName, Color]({
+&"Attack": Color(1.4, 0.8, 0.8, 1),
+&"Death": Color(1, 1, 1, 0.3)
+})
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1493529014]
+replication_config = SubResource("SceneReplicationConfig_o2nwl")

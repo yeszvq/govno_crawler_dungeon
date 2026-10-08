@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/placeholder/item.png" id="1_nnfck"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="2_phaeo"]
+
+[resource]
+script = ExtResource("2_phaeo")
+id = &"rat_tail"
+display_name = "Крысиный хвост"
+icon = ExtResource("1_nnfck")
+weight = 0.1

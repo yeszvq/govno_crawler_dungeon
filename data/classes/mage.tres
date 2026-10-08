@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ClassDefinition" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/class_definition.gd" id="1_gf0sj"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/mage.png" id="2_6seil"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="3_6ivc7"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="4_1aw3n"]
+
+[resource]
+script = ExtResource("1_gf0sj")
+description = "Хрупкий, но позже получит заклинания."
+starting_items = Array[ExtResource("3_6ivc7")]([ExtResource("4_1aw3n")])
+display_name = "Маг"
+sprite = ExtResource("2_6seil")
+max_health = 18
+strength = 3
+dexterity = 6
+defense = 1
