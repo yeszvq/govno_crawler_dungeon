@@ -4,7 +4,7 @@
 [ext_resource type="Resource" path="res://data/items/rat_tail.tres" id="2_yg1s8"]
 [ext_resource type="Resource" path="res://data/items/bread.tres" id="3_k8ko8"]
 [ext_resource type="Script" path="res://data/definitions/enemy_definition.gd" id="4_uavmj"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/rat.png" id="5_25g3m"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/rat.tres" id="5_25g3m"]
 
 [resource]
 script = ExtResource("4_uavmj")

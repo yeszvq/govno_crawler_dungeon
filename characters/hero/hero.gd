@@ -18,8 +18,10 @@ var owner_peer_id := 0:
 	set(value):
 		owner_peer_id = value
 		input.owner_peer_id = value
-		camera.enabled = input.is_local()
 		_set_active(value != 0)
+		camera.enabled = input.is_local()
+		if camera.enabled:
+			camera.make_current()
 
 ## Состояние → глобальное событие при входе в него.
 var _enter_events: Dictionary[StringName, Signal] = {}

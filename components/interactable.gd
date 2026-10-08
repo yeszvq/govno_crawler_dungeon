@@ -8,8 +8,11 @@ extends Node
 
 signal interacted(by: Actor)
 
-@export var enabled := true
-## Подсказка в интерфейсе («Поговорить», «Поднять»).
+@export var enabled := true:
+	set(value):
+		enabled = value
+		Grid.changed.emit()
+## Подсказка над целью: «[E] Поговорить».
 @export var prompt := ""
 
 

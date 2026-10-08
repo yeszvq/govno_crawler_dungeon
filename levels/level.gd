@@ -12,19 +12,25 @@ extends Node2D
 ## Что делать с символом, решает словарь _legend, а не цепочка if.
 ## Одинаковый текст/seed дают одинаковую карту на всех машинах.
 
-## Атлас тайлов в assets/placeholder/tileset.tres.
-const TILE_FLOOR := Vector2i(0, 0)
-const TILE_WALL := Vector2i(1, 0)
-const TILE_STAIRS_DOWN := Vector2i(2, 0)
-const TILE_STAIRS_UP := Vector2i(3, 0)
-const TILE_CAMPFIRE := Vector2i(4, 0)
+## Координаты тайлов в листе Dungeon Crawl (assets/dungeon_crawl/tileset.tres),
+## в клетках по 32 пикселя: (столбец, строка).
+const TILE_STAIRS_DOWN := Vector2i(41, 15)
+const TILE_STAIRS_UP := Vector2i(42, 15)
+const TILE_CAMPFIRE := Vector2i(13, 12)
+const SOURCE_ID := 0
 
 const RAT := "res://data/enemies/rat.tres"
 const ENEMY_SCENE := "res://characters/enemies/enemy.tscn"
 
 @export var id: StringName
 @export_multiline var layout := ""
+## Пол и стены этого уровня (у лагеря трава и кирпич, в подземелье камень).
+@export var floor_tile := Vector2i(43, 14)
+@export var wall_tile := Vector2i(17, 14)
+## Нижний слой: пол и стены.
 @export var tiles: TileMapLayer
+## Верхний слой: то, что стоит на полу (костёр). У этих тайлов прозрачный фон.
+@export var decor: TileMapLayer
 ## Сюда спаунер кладёт врагов и предметы.
 @export var entities: Node2D
 @export var spawner: MultiplayerSpawner
@@ -49,7 +55,7 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	spawner.spawn_function = _spawn_entity
 	_legend = {
-		"#": _paint.bind(TILE_WALL),
+		"#": _paint.bind(wall_tile),
 		".": _add_floor,
 		"P": _add_spawn,
 		"r": _add_enemy.bind(RAT),
@@ -90,11 +96,11 @@ func _spawn_entity(data: Dictionary) -> Node:
 
 
 func _paint(cell: Vector2i, tile: Vector2i) -> void:
-	tiles.set_cell(cell, 0, tile)
+	tiles.set_cell(cell, SOURCE_ID, tile)
 
 
 func _add_floor(cell: Vector2i) -> void:
-	_paint(cell, TILE_FLOOR)
+	_paint(cell, floor_tile)
 	_walkable[cell] = true
 
 
@@ -117,7 +123,7 @@ func _add_exit(cell: Vector2i, tile: Vector2i, target: StringName) -> void:
 
 func _add_rest_point(cell: Vector2i) -> void:
 	_add_floor(cell)
-	_paint(cell, TILE_CAMPFIRE)
+	decor.set_cell(cell, SOURCE_ID, TILE_CAMPFIRE)
 	_add_floor_point(RestPoint.new(), cell)
 
 

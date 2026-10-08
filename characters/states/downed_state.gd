@@ -4,7 +4,8 @@ extends State
 ## рядом. Если за bleed_out_time никто не помог — смерть.
 
 @export var health: HealthComponent
-## Включается, пока герой лежит: через него союзник его поднимает.
+## Включён, пока герой лежит: через него союзник его поднимает.
+## Переключается по state_changed, поэтому подсказка видна и у клиентов.
 @export var revive_point: Interactable
 @export var bleed_out_time := 15.0
 ## Сколько здоровья у поднятого героя, в долях от максимума.
@@ -20,16 +21,19 @@ func _ready() -> void:
 	health.depleted.connect(_on_health_depleted)
 	revive_point.interacted.connect(_on_revived)
 	revive_point.enabled = false
+	(get_parent() as StateMachine).state_changed.connect(_on_state_changed)
 
 
 func enter(_data: Dictionary = {}) -> void:
-	revive_point.enabled = true
 	_bleed_timer.start(bleed_out_time)
 
 
 func exit() -> void:
-	revive_point.enabled = false
 	_bleed_timer.stop()
+
+
+func _on_state_changed(_previous: StringName, current: StringName) -> void:
+	revive_point.enabled = current == name
 
 
 func _on_health_depleted(_source: Node) -> void:

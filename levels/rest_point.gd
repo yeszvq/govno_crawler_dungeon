@@ -6,7 +6,7 @@ const REST_MINUTES := 8 * 60
 
 
 func _init() -> void:
-	prompt = "Отдохнуть"
+	prompt = "Отдохнуть у костра"
 	interacted.connect(_on_interacted)
 
 

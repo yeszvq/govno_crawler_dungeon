@@ -1,16 +1,16 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_op4ts"]
-[ext_resource type="TileSet" path="res://assets/placeholder/tileset.tres" id="2_kx87w"]
+[ext_resource type="TileSet" path="res://assets/dungeon_crawl/tileset.tres" id="2_kx87w"]
 [ext_resource type="PackedScene" path="res://characters/npc/npc.tscn" id="3_yx2fq"]
 [ext_resource type="Script" path="res://characters/npc/npc.gd" id="4_6uf4w"]
-[ext_resource type="Texture2D" path="res://assets/placeholder/npc.png" id="5_1aq37"]
+[ext_resource type="Texture2D" path="res://assets/dungeon_crawl/sprites/aldric.tres" id="5_1aq37"]
 [ext_resource type="Script" path="res://components/grid_movement_component.gd" id="6_oa2q7"]
 [ext_resource type="Script" path="res://components/interactable.gd" id="7_53jpg"]
 [ext_resource type="Script" path="res://components/dialogue_trigger.gd" id="8_8deim"]
 [ext_resource type="Resource" path="res://dialogues/aldric.dialogue" id="9_vhpxw"]
 
-[node name="Camp" type="Node2D" unique_id=1278898495 node_paths=PackedStringArray("tiles", "entities", "spawner")]
+[node name="Camp" type="Node2D" unique_id=1585218721 node_paths=PackedStringArray("tiles", "decor", "entities", "spawner")]
 script = ExtResource("1_op4ts")
 id = &"camp"
 layout = "
@@ -25,35 +25,41 @@ layout = "
 #......>......#
 ###############
 "
+floor_tile = Vector2i(0, 15)
+wall_tile = Vector2i(8, 16)
 tiles = NodePath("Tiles")
+decor = NodePath("Decor")
 entities = NodePath("Entities")
 spawner = NodePath("EntitySpawner")
 
-[node name="Tiles" type="TileMapLayer" parent="." unique_id=1800916550]
+[node name="Tiles" type="TileMapLayer" parent="." unique_id=778822089]
 tile_set = ExtResource("2_kx87w")
 
-[node name="Entities" type="Node2D" parent="." unique_id=703840776]
+[node name="Decor" type="TileMapLayer" parent="." unique_id=536075373]
+tile_set = ExtResource("2_kx87w")
 
-[node name="EntitySpawner" type="MultiplayerSpawner" parent="." unique_id=1563955047]
+[node name="Entities" type="Node2D" parent="." unique_id=1141647720]
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="." unique_id=183212779]
 spawn_path = NodePath("../Entities")
 
-[node name="Aldric" parent="." unique_id=1500465233 node_paths=PackedStringArray("movement") instance=ExtResource("3_yx2fq")]
+[node name="Aldric" parent="." unique_id=393127500 node_paths=PackedStringArray("movement") instance=ExtResource("3_yx2fq")]
 position = Vector2(400, 144)
 script = ExtResource("4_6uf4w")
 movement = NodePath("GridMovement")
 
-[node name="Sprite" parent="Aldric" index="0" unique_id=1833136007]
+[node name="Sprite" parent="Aldric" index="0" unique_id=1144505876]
 texture = ExtResource("5_1aq37")
 
-[node name="GridMovement" parent="Aldric" index="1" unique_id=285082588 node_paths=PackedStringArray("body")]
+[node name="GridMovement" parent="Aldric" index="1" unique_id=2045103394 node_paths=PackedStringArray("body")]
 script = ExtResource("6_oa2q7")
 body = NodePath("..")
 
-[node name="Interactable" parent="Aldric" index="2" unique_id=702289898]
+[node name="Interactable" parent="Aldric" index="2" unique_id=184266426]
 script = ExtResource("7_53jpg")
-prompt = "Поговорить"
+prompt = "Поговорить с Альдриком"
 
-[node name="DialogueTrigger" parent="Aldric" index="3" unique_id=538786846 node_paths=PackedStringArray("interactable")]
+[node name="DialogueTrigger" parent="Aldric" index="3" unique_id=1247485031 node_paths=PackedStringArray("interactable")]
 script = ExtResource("8_8deim")
 interactable = NodePath("../Interactable")
 dialogue = ExtResource("9_vhpxw")

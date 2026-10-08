@@ -27,10 +27,10 @@ Godot 4.7.2, типизированный GDScript. Кооператив до 4 
 | `levels/` | `Level` (база), `camp/`, `dungeon/` (генератор этажей) |
 | `items/` | Предмет на полу (`Pickup`) |
 | `main/` | Главная сцена и сервисы: `PartyService`, `LevelLoader`, `PauseService` |
-| `ui/` | Меню, HUD, инвентарь, пауза |
+| `ui/` | Меню, HUD, инвентарь, пауза, подсказка взаимодействия |
 | `data/` | `definitions/` (скрипты ресурсов) и сами `.tres` |
 | `dialogues/` | Диалоги Dialogue Manager |
-| `assets/placeholder/` | Временная графика (генерируется `tools/generate_placeholders.gd`) |
+| `assets/dungeon_crawl/` | Лист тайлов Dungeon Crawl 32x32 (CC0), TileSet и вырезанные спрайты |
 | `tests/` | Тесты gdUnit4 |
 | `addons/` | Dialogue Manager 4.1.0, gdUnit4 6.2.2 |
 
@@ -93,11 +93,24 @@ Hero (Actor)
 `DialogueTrigger` на NPC: хост обрабатывает взаимодействие и отправляет RPC только тому игроку,
 который подошёл. У него срабатывает `Events.dialogue_requested`, и UI показывает шарик Dialogue Manager.
 
+## Подсказки взаимодействия
+
+`InteractionHint` (в `Main`) показывает «[E] Поговорить с Альдриком» над тем, что стоит или лежит
+перед своим героем. Текст берётся из `Interactable.prompt`. Подсказка пересчитывается по событиям:
+`Grid.changed` (кто-то шагнул, предмет появился или исчез, `Interactable` включился/выключился),
+поворот и смена состояния своего героя, открытие меню. Подсказка видна, только если текущее
+состояние героя умеет взаимодействовать (`StateMachine.accepts(Intent.INTERACT)`).
+
 ## Графика
 
-Сейчас стоят цветные заглушки. Пак 32rogues нельзя выкладывать в публичный репозиторий (лицензия
-запрещает распространять сам пак), поэтому кладите его локально в `assets/32rogues/` — эта папка в `.gitignore`.
-Потом поменяйте `sprite`/`icon` в `data/*.tres` и атлас в `assets/placeholder/tileset.tres`.
+Лист Dungeon Crawl 32x32 (ProjectUtumno, CC0) лежит в `assets/dungeon_crawl/project_utumno.png`.
+Тайлы уровней берутся из него по координатам (столбец, строка): пол и стены задаются
+`floor_tile`/`wall_tile` у сцены уровня, лестницы и костёр — константами в `levels/level.gd`.
+Новый тайл надо также добавить в `assets/dungeon_crawl/tileset.tres` (в редакторе TileSet).
+Спрайты героев, врагов и предметов — `AtlasTexture` в `assets/dungeon_crawl/sprites/`.
+
+Пак 32rogues нельзя выкладывать в публичный репозиторий (лицензия запрещает распространять сам пак),
+поэтому, если понадобится, он кладётся локально в `assets/32rogues/` — эта папка в `.gitignore`.
 
 ## Тесты
 

@@ -44,3 +44,14 @@ func test_detaches_on_exit() -> void:
 	remove_child(_camp)
 	assert_object(Grid.level).is_null()
 	add_child(_camp)
+
+
+func test_changed_fires_on_moves_and_interactable_toggle() -> void:
+	var count := [0]
+	Grid.changed.connect(func() -> void: count[0] += 1)
+	var token: Node = auto_free(Node.new())
+	Grid.move_occupant(token, Vector2i(2, 2), Vector2i(2, 2))
+	var npc_interactable := Grid.interactable_at(Vector2i(12, 4))
+	npc_interactable.enabled = false
+	assert_int(count[0]).is_equal(2)
+	assert_object(Grid.interactable_at(Vector2i(12, 4))).is_same(npc_interactable)

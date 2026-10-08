@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1qwlc1mjgofe"
-path="res://.godot/imported/npc.png-36170971f95f7402bcb3507d9fba084d.ctex"
+uid="uid://bu0c6adf83r54"
+path="res://.godot/imported/project_utumno.png-88982e511ea879682aa36c1e99473fd2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder/npc.png"
-dest_files=["res://.godot/imported/npc.png-36170971f95f7402bcb3507d9fba084d.ctex"]
+source_file="res://assets/dungeon_crawl/project_utumno.png"
+dest_files=["res://.godot/imported/project_utumno.png-88982e511ea879682aa36c1e99473fd2.ctex"]
 
 [params]
 

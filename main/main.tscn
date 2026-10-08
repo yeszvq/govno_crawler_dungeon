@@ -1,127 +1,144 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://characters/hero/hero.tscn" id="1_n3o0a"]
-[ext_resource type="Script" path="res://characters/hero/hero.gd" id="2_s758e"]
-[ext_resource type="Resource" path="res://data/classes/warrior.tres" id="3_4hmqs"]
-[ext_resource type="Resource" path="res://data/classes/rogue.tres" id="4_piupu"]
-[ext_resource type="Resource" path="res://data/classes/cleric.tres" id="5_q0sk7"]
-[ext_resource type="Resource" path="res://data/classes/mage.tres" id="6_vapsy"]
-[ext_resource type="Script" path="res://main/party_service.gd" id="7_jofbb"]
-[ext_resource type="Script" path="res://main/level_loader.gd" id="8_re7it"]
-[ext_resource type="PackedScene" path="res://levels/camp/camp.tscn" id="9_oagth"]
-[ext_resource type="PackedScene" path="res://levels/dungeon/dungeon_floor.tscn" id="10_n53tw"]
-[ext_resource type="Script" path="res://main/pause_service.gd" id="11_d00gp"]
-[ext_resource type="Script" path="res://ui/ui.gd" id="12_d8vpj"]
-[ext_resource type="Script" path="res://ui/hud/hud.gd" id="13_qs5eo"]
-[ext_resource type="Script" path="res://ui/menus/inventory_panel.gd" id="14_frbr6"]
-[ext_resource type="PackedScene" path="res://ui/main_menu/main_menu.tscn" id="15_o8j3b"]
-[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="16_wpkmi"]
+[ext_resource type="PackedScene" path="res://characters/hero/hero.tscn" id="1_s758e"]
+[ext_resource type="Script" path="res://characters/hero/hero.gd" id="2_4hmqs"]
+[ext_resource type="Resource" path="res://data/classes/warrior.tres" id="3_piupu"]
+[ext_resource type="Resource" path="res://data/classes/rogue.tres" id="4_q0sk7"]
+[ext_resource type="Resource" path="res://data/classes/cleric.tres" id="5_vapsy"]
+[ext_resource type="Resource" path="res://data/classes/mage.tres" id="6_jofbb"]
+[ext_resource type="Script" path="res://main/party_service.gd" id="7_re7it"]
+[ext_resource type="Script" path="res://main/level_loader.gd" id="8_oagth"]
+[ext_resource type="PackedScene" path="res://levels/camp/camp.tscn" id="9_n53tw"]
+[ext_resource type="PackedScene" path="res://levels/dungeon/dungeon_floor.tscn" id="10_d00gp"]
+[ext_resource type="Script" path="res://main/pause_service.gd" id="11_d8vpj"]
+[ext_resource type="Script" path="res://ui/interaction_hint/interaction_hint.gd" id="12_qs5eo"]
+[ext_resource type="Script" path="res://ui/ui.gd" id="13_frbr6"]
+[ext_resource type="Script" path="res://ui/hud/hud.gd" id="14_o8j3b"]
+[ext_resource type="Script" path="res://ui/menus/inventory_panel.gd" id="15_wpkmi"]
+[ext_resource type="PackedScene" path="res://ui/main_menu/main_menu.tscn" id="16_o0l78"]
+[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="17_576ah"]
 
-[node name="Main" type="Node" unique_id=1947177143]
+[node name="Main" type="Node" unique_id=1436088510]
 
-[node name="LevelContainer" type="Node2D" parent="." unique_id=547400961]
+[node name="LevelContainer" type="Node2D" parent="." unique_id=1254210589]
 
-[node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=231453073]
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=1668112035]
 spawn_path = NodePath("../LevelContainer")
 
-[node name="Players" type="Node2D" parent="." unique_id=457658904]
+[node name="Players" type="Node2D" parent="." unique_id=661398701]
 
-[node name="Hero1" type="Node2D" parent="Players" unique_id=728465993 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_n3o0a")]
-script = ExtResource("2_s758e")
+[node name="Hero1" type="Node2D" parent="Players" unique_id=1969156182 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_s758e")]
+script = ExtResource("2_4hmqs")
 input = NodePath("Input")
 camera = NodePath("Camera")
 inventory = NodePath("Inventory")
 needs = NodePath("Needs")
-stats = ExtResource("3_4hmqs")
+stats = ExtResource("3_piupu")
 sprite = NodePath("Sprite")
 state_machine = NodePath("StateMachine")
 health = NodePath("Health")
 movement = NodePath("GridMovement")
 
-[node name="Hero2" type="Node2D" parent="Players" unique_id=1545987535 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_n3o0a")]
-script = ExtResource("2_s758e")
+[node name="Hero2" type="Node2D" parent="Players" unique_id=445627285 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_s758e")]
+script = ExtResource("2_4hmqs")
 slot = 1
 input = NodePath("Input")
 camera = NodePath("Camera")
 inventory = NodePath("Inventory")
 needs = NodePath("Needs")
-stats = ExtResource("4_piupu")
+stats = ExtResource("4_q0sk7")
 sprite = NodePath("Sprite")
 state_machine = NodePath("StateMachine")
 health = NodePath("Health")
 movement = NodePath("GridMovement")
 
-[node name="Hero3" type="Node2D" parent="Players" unique_id=2053834754 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_n3o0a")]
-script = ExtResource("2_s758e")
+[node name="Hero3" type="Node2D" parent="Players" unique_id=487500805 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_s758e")]
+script = ExtResource("2_4hmqs")
 slot = 2
 input = NodePath("Input")
 camera = NodePath("Camera")
 inventory = NodePath("Inventory")
 needs = NodePath("Needs")
-stats = ExtResource("5_q0sk7")
+stats = ExtResource("5_vapsy")
 sprite = NodePath("Sprite")
 state_machine = NodePath("StateMachine")
 health = NodePath("Health")
 movement = NodePath("GridMovement")
 
-[node name="Hero4" type="Node2D" parent="Players" unique_id=864691263 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_n3o0a")]
-script = ExtResource("2_s758e")
+[node name="Hero4" type="Node2D" parent="Players" unique_id=682317480 node_paths=PackedStringArray("input", "camera", "inventory", "needs", "sprite", "state_machine", "health", "movement") instance=ExtResource("1_s758e")]
+script = ExtResource("2_4hmqs")
 slot = 3
 input = NodePath("Input")
 camera = NodePath("Camera")
 inventory = NodePath("Inventory")
 needs = NodePath("Needs")
-stats = ExtResource("6_vapsy")
+stats = ExtResource("6_jofbb")
 sprite = NodePath("Sprite")
 state_machine = NodePath("StateMachine")
 health = NodePath("Health")
 movement = NodePath("GridMovement")
 
-[node name="Services" type="Node" parent="." unique_id=1461417063]
+[node name="Services" type="Node" parent="." unique_id=959822796]
 
-[node name="PartyService" type="Node" parent="Services" unique_id=339952256 node_paths=PackedStringArray("heroes")]
-script = ExtResource("7_jofbb")
+[node name="PartyService" type="Node" parent="Services" unique_id=815921478 node_paths=PackedStringArray("heroes")]
+script = ExtResource("7_re7it")
 heroes = [NodePath("../../Players/Hero1"), NodePath("../../Players/Hero2"), NodePath("../../Players/Hero3"), NodePath("../../Players/Hero4")]
 
-[node name="LevelLoader" type="Node" parent="Services" unique_id=1870448639 node_paths=PackedStringArray("spawner", "container", "party")]
-script = ExtResource("8_re7it")
+[node name="LevelLoader" type="Node" parent="Services" unique_id=584444197 node_paths=PackedStringArray("spawner", "container", "party")]
+script = ExtResource("8_oagth")
 spawner = NodePath("../../LevelSpawner")
 container = NodePath("../../LevelContainer")
 party = NodePath("../PartyService")
 levels = Dictionary[StringName, PackedScene]({
-&"camp": ExtResource("9_oagth"),
-&"dungeon": ExtResource("10_n53tw")
+&"camp": ExtResource("9_n53tw"),
+&"dungeon": ExtResource("10_d00gp")
 })
 
-[node name="PauseService" type="Node" parent="Services" unique_id=148976339]
-script = ExtResource("11_d00gp")
+[node name="PauseService" type="Node" parent="Services" unique_id=2121084401]
+script = ExtResource("11_d8vpj")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=143319817 node_paths=PackedStringArray("main_menu", "hud", "inventory_panel", "pause_overlay")]
-script = ExtResource("12_d8vpj")
+[node name="InteractionHint" type="Node2D" parent="." unique_id=1221797008 node_paths=PackedStringArray("heroes", "label")]
+z_index = 10
+script = ExtResource("12_qs5eo")
+heroes = [NodePath("../Players/Hero1"), NodePath("../Players/Hero2"), NodePath("../Players/Hero3"), NodePath("../Players/Hero4")]
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="InteractionHint" unique_id=788326813]
+offset_left = -80.0
+offset_top = -12.0
+offset_right = 80.0
+offset_bottom = 11.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=866166460 node_paths=PackedStringArray("main_menu", "hud", "inventory_panel", "pause_overlay")]
+script = ExtResource("13_frbr6")
 main_menu = NodePath("MainMenu")
 hud = NodePath("Hud")
 inventory_panel = NodePath("InventoryPanel")
 pause_overlay = NodePath("PauseOverlay")
 
-[node name="Hud" type="Control" parent="UI" unique_id=383058222 node_paths=PackedStringArray("heroes", "party_box", "clock_label")]
+[node name="Hud" type="Control" parent="UI" unique_id=1346444922 node_paths=PackedStringArray("heroes", "party_box", "clock_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource("13_qs5eo")
+script = ExtResource("14_o8j3b")
 heroes = [NodePath("../../Players/Hero1"), NodePath("../../Players/Hero2"), NodePath("../../Players/Hero3"), NodePath("../../Players/Hero4")]
 party_box = NodePath("PartyBox")
 clock_label = NodePath("Clock")
 
-[node name="PartyBox" type="VBoxContainer" parent="UI/Hud" unique_id=143305464]
+[node name="PartyBox" type="VBoxContainer" parent="UI/Hud" unique_id=722416601]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 12.0
 offset_bottom = 12.0
 
-[node name="Clock" type="Label" parent="UI/Hud" unique_id=1920293187]
+[node name="Clock" type="Label" parent="UI/Hud" unique_id=1055753932]
 layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
@@ -131,7 +148,7 @@ offset_right = -220.0
 offset_bottom = 12.0
 text = "День 1, 08:00"
 
-[node name="InventoryPanel" type="PanelContainer" parent="UI" unique_id=2015427681 node_paths=PackedStringArray("heroes", "item_list")]
+[node name="InventoryPanel" type="PanelContainer" parent="UI" unique_id=643918062 node_paths=PackedStringArray("heroes", "item_list")]
 custom_minimum_size = Vector2(320, 240)
 anchors_preset = 8
 anchor_left = 0.5
@@ -142,29 +159,29 @@ offset_left = -160.0
 offset_top = -120.0
 offset_right = -160.0
 offset_bottom = -120.0
-script = ExtResource("14_frbr6")
+script = ExtResource("15_wpkmi")
 heroes = [NodePath("../../Players/Hero1"), NodePath("../../Players/Hero2"), NodePath("../../Players/Hero3"), NodePath("../../Players/Hero4")]
 item_list = NodePath("Box/Items")
 
-[node name="Box" type="VBoxContainer" parent="UI/InventoryPanel" unique_id=691731125]
+[node name="Box" type="VBoxContainer" parent="UI/InventoryPanel" unique_id=1397133219]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="UI/InventoryPanel/Box" unique_id=936961272]
+[node name="Title" type="Label" parent="UI/InventoryPanel/Box" unique_id=697475498]
 layout_mode = 2
 text = "Инвентарь (I — закрыть)"
 
-[node name="Items" type="ItemList" parent="UI/InventoryPanel/Box" unique_id=1463071915]
+[node name="Items" type="ItemList" parent="UI/InventoryPanel/Box" unique_id=1155005170]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PauseOverlay" type="ColorRect" parent="UI" unique_id=260511862]
+[node name="PauseOverlay" type="ColorRect" parent="UI" unique_id=512685267]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="Label" type="Label" parent="UI/PauseOverlay" unique_id=1106578278]
+[node name="Label" type="Label" parent="UI/PauseOverlay" unique_id=1253670457]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -172,12 +189,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 text = "ПАУЗА (P)"
 
-[node name="MainMenu" type="Control" parent="UI" unique_id=1055614647 node_paths=PackedStringArray("host_button", "address_edit", "join_button", "lan_list", "status_label") instance=ExtResource("15_o8j3b")]
+[node name="MainMenu" type="Control" parent="UI" unique_id=1407825511 node_paths=PackedStringArray("host_button", "address_edit", "join_button", "lan_list", "status_label") instance=ExtResource("16_o0l78")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource("16_wpkmi")
+script = ExtResource("17_576ah")
 host_button = NodePath("Center/Box/HostButton")
 address_edit = NodePath("Center/Box/JoinRow/Address")
 join_button = NodePath("Center/Box/JoinRow/JoinButton")

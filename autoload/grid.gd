@@ -6,6 +6,9 @@ extends Node
 ## Уровень сам подключается к Grid в _enter_tree (раньше, чем его дети
 ## успеют встать на клетки) и отключается в _exit_tree.
 
+## Что-то сдвинулось, появилось или исчезло (для подсказок и т.п.).
+signal changed
+
 const CELL_SIZE := 32
 
 var level: Level
@@ -19,6 +22,7 @@ func attach_level(new_level: Level) -> void:
 	level = new_level
 	_occupants.clear()
 	_floor_interactables.clear()
+	changed.emit()
 
 
 func detach_level(old_level: Level) -> void:
@@ -50,20 +54,24 @@ func occupant_at(cell: Vector2i) -> Node:
 func move_occupant(entity: Node, from: Vector2i, to: Vector2i) -> void:
 	release(entity, from)
 	_occupants[to] = entity
+	changed.emit()
 
 
 func release(entity: Node, cell: Vector2i) -> void:
 	if _occupants.get(cell) == entity:
 		_occupants.erase(cell)
+		changed.emit()
 
 
 func add_floor_interactable(interactable: Interactable, cell: Vector2i) -> void:
 	_floor_interactables[cell] = interactable
+	changed.emit()
 
 
 func remove_floor_interactable(interactable: Interactable, cell: Vector2i) -> void:
 	if _floor_interactables.get(cell) == interactable:
 		_floor_interactables.erase(cell)
+		changed.emit()
 
 
 ## С чем можно взаимодействовать в клетке: сначала тот, кто там стоит

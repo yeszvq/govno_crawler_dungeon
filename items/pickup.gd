@@ -19,6 +19,7 @@ func setup(data: Dictionary) -> void:
 
 func _ready() -> void:
 	sprite.texture = item.icon
+	interactable.prompt = "Поднять: %s" % item.display_name
 	interactable.interacted.connect(_on_interacted)
 
 

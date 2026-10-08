@@ -98,3 +98,10 @@ func test_resume_goes_idle_when_nothing_held() -> void:
 	_machine.transition_to(&"Attack")
 	_machine.resume()
 	assert_str(_machine.state_name).is_equal("Idle")
+
+
+func test_accepts_reads_current_state_table() -> void:
+	assert_bool(_machine.accepts(Intent.MOVE)).is_true()
+	assert_bool(_machine.accepts(Intent.STOP)).is_false()
+	_source.emit_intent(Intent.new(Intent.MOVE, Vector2i.UP))
+	assert_bool(_machine.accepts(Intent.STOP)).is_true()

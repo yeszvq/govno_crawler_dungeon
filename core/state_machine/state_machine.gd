@@ -63,3 +63,10 @@ func resume() -> void:
 
 func has_state(target: StringName) -> bool:
 	return _states.has(target)
+
+
+## Есть ли у текущего состояния переход по такому намерению.
+## Работает и у клиентов, потому что смотрит на синхронизированный state_name.
+func accepts(kind: StringName) -> bool:
+	var state: State = _states.get(state_name)
+	return state != null and state.transitions.has(kind)
