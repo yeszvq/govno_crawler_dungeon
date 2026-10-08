@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ClassDefinition" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/class_definition.gd" id="1_wyf0b"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/cleric.png" id="2_e674p"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="3_idkma"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="4_fdpiw"]
+
+[resource]
+script = ExtResource("1_wyf0b")
+description = "Крепкий боец, позже научится лечить."
+starting_items = Array[ExtResource("3_idkma")]([ExtResource("4_fdpiw")])
+display_name = "Жрец"
+sprite = ExtResource("2_e674p")
+max_health = 26
+strength = 6
+defense = 2
+armor = 2
+weapon_skill = 1
+damage_die = 6

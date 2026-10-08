@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://characters/npc/npc.gd" id="1_71267"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/npc.png" id="2_vb8yn"]
+[ext_resource type="Script" path="res://components/grid_movement_component.gd" id="3_au85k"]
+[ext_resource type="Script" path="res://components/interactable.gd" id="4_0vu31"]
+[ext_resource type="Script" path="res://components/dialogue_trigger.gd" id="5_ci4ts"]
+
+[node name="Npc" type="Node2D" unique_id=1500465233 node_paths=PackedStringArray("movement")]
+script = ExtResource("1_71267")
+movement = NodePath("GridMovement")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1833136007]
+texture = ExtResource("2_vb8yn")
+
+[node name="GridMovement" type="Node" parent="." unique_id=285082588 node_paths=PackedStringArray("body")]
+script = ExtResource("3_au85k")
+body = NodePath("..")
+
+[node name="Interactable" type="Node" parent="." unique_id=702289898]
+script = ExtResource("4_0vu31")
+prompt = "Поговорить"
+
+[node name="DialogueTrigger" type="Node" parent="." unique_id=538786846 node_paths=PackedStringArray("interactable")]
+script = ExtResource("5_ci4ts")
+interactable = NodePath("../Interactable")

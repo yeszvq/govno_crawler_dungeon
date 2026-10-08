@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="1_lclod"]
+[ext_resource type="Resource" path="res://data/items/rat_tail.tres" id="2_yg1s8"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="3_k8ko8"]
+[ext_resource type="Script" path="res://data/definitions/enemy_definition.gd" id="4_uavmj"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/rat.png" id="5_25g3m"]
+
+[resource]
+script = ExtResource("4_uavmj")
+loot = Array[ExtResource("1_lclod")]([ExtResource("2_yg1s8"), ExtResource("3_k8ko8")])
+display_name = "Крыса"
+sprite = ExtResource("5_25g3m")
+max_health = 6
+strength = 2
+dexterity = 6
+damage_die = 3
+step_time = 0.35
+attack_cooldown = 0.9

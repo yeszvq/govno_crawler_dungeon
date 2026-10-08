@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+
+[node name="MainMenu" type="Control" unique_id=1055614647 node_paths=PackedStringArray("host_button", "address_edit", "join_button", "lan_list", "status_label")]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_uhj5c")
+host_button = NodePath("Center/Box/HostButton")
+address_edit = NodePath("Center/Box/JoinRow/Address")
+join_button = NodePath("Center/Box/JoinRow/JoinButton")
+lan_list = NodePath("Center/Box/LanList")
+status_label = NodePath("Center/Box/Status")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1715579346]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Box" type="VBoxContainer" parent="Center" unique_id=1025903728]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Box" unique_id=238263065]
+layout_mode = 2
+text = "Последний костёр"
+horizontal_alignment = 1
+
+[node name="HostButton" type="Button" parent="Center/Box" unique_id=1624842806]
+layout_mode = 2
+text = "Создать игру"
+
+[node name="JoinRow" type="HBoxContainer" parent="Center/Box" unique_id=1278323218]
+layout_mode = 2
+
+[node name="Address" type="LineEdit" parent="Center/Box/JoinRow" unique_id=1183127554]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "IP хоста"
+
+[node name="JoinButton" type="Button" parent="Center/Box/JoinRow" unique_id=811137848]
+layout_mode = 2
+text = "Подключиться"
+
+[node name="LanTitle" type="Label" parent="Center/Box" unique_id=1568052833]
+layout_mode = 2
+text = "Игры в локальной сети (двойной клик — подключиться):"
+
+[node name="LanList" type="ItemList" parent="Center/Box" unique_id=241182583]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="Status" type="Label" parent="Center/Box" unique_id=1295864525]
+layout_mode = 2

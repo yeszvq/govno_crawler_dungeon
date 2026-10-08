@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ClassDefinition" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/class_definition.gd" id="1_kv6er"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/warrior.png" id="2_8y3rw"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="3_i8kcp"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="4_2dk3a"]
+
+[resource]
+script = ExtResource("1_kv6er")
+description = "Танк передней линии. Много здоровья, тяжёлый удар."
+starting_items = Array[ExtResource("3_i8kcp")]([ExtResource("4_2dk3a")])
+display_name = "Воин"
+sprite = ExtResource("2_8y3rw")
+max_health = 30
+strength = 8
+dexterity = 4
+defense = 2
+armor = 2
+weapon_skill = 2
+damage_die = 8

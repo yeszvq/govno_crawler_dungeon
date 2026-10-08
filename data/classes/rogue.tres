@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ClassDefinition" format=3]
+
+[ext_resource type="Script" path="res://data/definitions/class_definition.gd" id="1_l0n1y"]
+[ext_resource type="Texture2D" path="res://assets/placeholder/rogue.png" id="2_07stm"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="3_cjm6j"]
+[ext_resource type="Resource" path="res://data/items/bread.tres" id="4_ewcr0"]
+
+[resource]
+script = ExtResource("1_l0n1y")
+description = "Быстрый и ловкий, редко промахивается."
+starting_items = Array[ExtResource("3_cjm6j")]([ExtResource("4_ewcr0")])
+display_name = "Плут"
+sprite = ExtResource("2_07stm")
+max_health = 22
+dexterity = 9
+defense = 3
+armor = 1
+weapon_skill = 2
+damage_die = 6
+step_time = 0.2

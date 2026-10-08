@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=18
+type="Resource"
+uid="uid://1ukyerif0mte"
+path="res://.godot/imported/aldric.dialogue-ff5124837905231023e4b2436cf71b0d.tres"
+
+[deps]
+
+source_file="res://dialogues/aldric.dialogue"
+dest_files=["res://.godot/imported/aldric.dialogue-ff5124837905231023e4b2436cf71b0d.tres"]
+
+[params]
+
+defaults=true

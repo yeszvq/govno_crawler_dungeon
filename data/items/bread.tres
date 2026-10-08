@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/placeholder/item.png" id="1_5xdh6"]
+[ext_resource type="Script" path="res://data/definitions/item_definition.gd" id="2_meqyy"]
+
+[resource]
+script = ExtResource("2_meqyy")
+id = &"bread"
+display_name = "Хлеб"
+icon = ExtResource("1_5xdh6")
+kind = 1
+weight = 0.3
+satiety = 30
